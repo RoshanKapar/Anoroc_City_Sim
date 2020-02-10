@@ -1,13 +1,40 @@
 #include<iostream>
-#include<vectors>
+#include<stdio.h>
+#include<thread>
+#include<unistd.h>
+#include<Windows.h>
+#include<stdlib.h>
 #include<string>
-#include<windows.h>
-#include<iterator>
-#include"main.h"
+
+
 using namespace std;
 
-class interface
-public:
+void example()
+{
+    while (true)
+    {
+        cout << "Hello";
+    }
+}
 
-                                                                        /* will contain the interaction with the user */
-class townhall   
+void example2()
+{
+    while (true)
+    {
+        cout << "There";
+    }
+}
+
+void allthings{
+thread t1(example);
+    thread t2(example2);
+    t1.join();
+    t2.join();
+    return 0;
+}
+int main()
+{
+    allthings();
+    return 0;
+}
+

@@ -6,6 +6,9 @@
 #include<array>
 #include<sstream>
 #include <fstream>
+#include<thread>
+#include <iomanip>
+#include <stdlib.h>
 using namespace std;
 
 static HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -19,45 +22,56 @@ const int height = 30;
 int x, y, fruitX, fruitY, score;
 int tailX[100], tailY[100];
 int nTail;
+static int  hours = 0;
+static int minutes = 0;
+static int seconds = 0;
+static int toturialsum = 1000000;
+static int sum = 0;
 
 
 bool check(int x, int y, int z)
- {
+{
 
     int b;
-    string text,x1;
+    string text, x1;
     ifstream file;
     file.open("pointers.txt");
     getline(file, text);
     ostringstream strg;
-    strg<<x;
-    x1=strg.str();
-    b=text.find(x1);
-  if (b>=0)
-  {
+    strg << x;
+    x1 = strg.str();
+    b = text.find(x1);
+    if (b >= 0)
+    {
         return false;
-  }
-  else
+    }
+    else
     {
         string text1;
         ofstream file;
         file.open("pointers.txt", std::ios_base::app);
         file << x << y;
-        if (z==1)
-        {Housestore1.push_back(x);
-        Housestore1.push_back(y);
-        return true;}
-        else if(z==2)
-        {Housestore2.push_back(x);
-        Housestore2.push_back(y);
-        return true;}
-        else if(z==3)
-        {Housestore3.push_back(x);
-        Housestore3.push_back(y);
-        return true;}
+        if (z == 1)
+        {
+            Housestore1.push_back(x);
+            Housestore1.push_back(y);
+            return true;
+        }
+        else if (z == 2)
+        {
+            Housestore2.push_back(x);
+            Housestore2.push_back(y);
+            return true;
+        }
+        else if (z == 3)
+        {
+            Housestore3.push_back(x);
+            Housestore3.push_back(y);
+            return true;
+        }
         {Roadstore.push_back(x);
         Roadstore.push_back(y);
-        return true;}
+        return true; }
     }
 
 
@@ -113,18 +127,22 @@ void definecoordinate(int x, int y)
 
 void townhall_maker(string imap)
 {
-        SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
-        definecoordinate(50, 10);
-        SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-        cout << "THTHTHTHTH" << endl;
+    SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
+    definecoordinate(50, 10);
+    SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    cout << "THTHTHTHTH" << endl;
 }
 
 bool dontexit(int x)
 {
-    if (x==1)
-    {return true;}
+    if (x == 1)
+    {
+        return true;
+    }
     else
-    {return false;}
+    {
+        return false;
+    }
 }
 
 
@@ -191,90 +209,132 @@ bool finance(int x)
 void CityBuilder()
 {
     bool l;
-    int j,k;
+    int j, k;
     int w;
     SetConsoleTextAttribute(h, FOREGROUND_RED | FOREGROUND_INTENSITY);
     cout.width(120);
-    cout<<"WELCOME TO THE CONSTRUCTION MENU"<<endl;
+    cout << "WELCOME TO THE CONSTRUCTION MENU" << endl;
     SetConsoleTextAttribute(h, FOREGROUND_GREEN);
-    cout<<City_costs<<endl;
-    cout<<"Enter spectific Number"<<endl;
-    cin>>w;
-    cout<<"Enter Map Grid [Remember to keep the grid spaced out by a multiple of 5 to maintain happiness]"<<endl;
-    cin>>j>>k;
+    cout << City_costs << endl;
+    cout << "Enter spectific Number" << endl;
+    cin >> w;
+    cout << "Enter Map Grid [Remember to keep the grid spaced out by a multiple of 5 to maintain happiness]" << endl;
+    cin >> j >> k;
     SetConsoleTextAttribute(h, FOREGROUND_BLUE | FOREGROUND_INTENSITY);
-    l=check(j,k,w);
-    if (l==false)
+    l = check(j, k, w);
+    if (l == false)
     {
-    cout<<"Failed ! There exists a building/road. Try Again"<<endl;
+        cout << "Failed ! There exists a building/road. Try Again" << endl;
     }
-    else if (l==true)
+    else if (l == true)
     {
-    cout<<"Congrats Building was placed at your specified position"<<endl;
+        cout << "Congrats Building was placed at your specified position" << endl;
     }
 
 
 }
 void smallApartment()
-{       for(int i=0;i<Housestore1.size();i=i+2)
 {
-        definecoordinate(Housestore1[i],Housestore1[i+1]);
+    for (int i = 0; i < Housestore1.size(); i = i + 2)
+    {
+        definecoordinate(Housestore1[i], Housestore1[i + 1]);
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "HHHHH" << endl;
-}
+    }
 }
 void mediumApartmrnt()
 {
-        for(int i=0;i<Housestore2.size();i=i+2)
-        {
-        definecoordinate(Housestore2[i],Housestore2[i+1]);
+    for (int i = 0; i < Housestore2.size(); i = i + 2)
+    {
+        definecoordinate(Housestore2[i], Housestore2[i + 1]);
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "HHHHHHHHH" << endl;
-        }
+    }
 
 }
 void largeapartment()
 {
-        for(int i=0;i<Housestore3.size();i=i+2)
-        {
-        definecoordinate(Housestore3[i],Housestore3[i+1]);
+    for (int i = 0; i < Housestore3.size(); i = i + 2)
+    {
+        definecoordinate(Housestore3[i], Housestore3[i + 1]);
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "HHHHHHHHHHH" << endl;
-        }
+    }
 }
-int main()
+
+void finance1()
 {
+    if (hours % 30 == 0)
+    {
+        sum = sum + 800000;
+        cout << sum << endl;
+    }
+}
+void timer()
+{
+
+    while (true) {
+
+        finance1();
+        Sleep(1000);
+        seconds = seconds + 60;
+        if (seconds == 60) {
+            minutes = minutes + 60;
+            if (minutes == 60) {
+                hours++;
+                minutes = 0;
+            }
+            seconds = 0;
+        }
+    }
+}
+
+void GameCommandEngine()
+{   
     string x;
     bool gamenotover;
-    cout << welcometext(5) << endl;
-    Tutorials(3);
     gamenotover = finance(500);
     while (gamenotover)
     {
-        cout << "\nWelcome back to the command line\n-To view map write map.\n-To view City statistics write stats\n-To go to construction menu\n-To clear screen write cls "<< endl;
+        cout << "\nWelcome back to the command line\n-To view map write map.\n-To view City statistics write stats\n-To go to construction menu\n-To clear screen write cls " << endl;
         cin >> x;
-        if (x == "map"){
-        system("cls");
-        Draw();
-        townhall_maker(x);
-        smallApartment();
-        mediumApartmrnt();
-        largeapartment();
-        Sleep(5000);
-        system("cls");
+        if (x == "map") {
+            system("cls");
+            Draw();
+            townhall_maker(x);
+            smallApartment();
+            mediumApartmrnt();
+            largeapartment();
+            Sleep(5000);
+            system("cls");
         }
-        if (x=="cls")
+        if (x == "cls")
         {
-        system("cls");
+            system("cls");
         }
-        if(x=="const")
-            {
+        if (x == "const")
+        {
             loadingmaker();
             system("cls");
             CityBuilder();
-            }
+        }
 
     }
-    return 0;
+}
+void GameEngine()
+{
+    thread t1(timer);
+    thread t2(GameCommandEngine);
+    t1.join();
+    t2.join();
 }
 
+int main()
+{
+    
+    cout << welcometext(5) << endl;
+    Tutorials(3);
+    GameEngine();
+    
+    return 0;
+}
