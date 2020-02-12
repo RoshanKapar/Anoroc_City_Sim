@@ -1,9 +1,8 @@
 #include<iostream>
-#include<vectors>
+#include<vector>
 #include<string>
 #include<windows.h>
 #include<iterator>
-#include"main.h"
 using namespace std;
 
 

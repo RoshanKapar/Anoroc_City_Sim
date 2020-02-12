@@ -26,7 +26,7 @@ static int  hours = 0;
 static int minutes = 0;
 static int seconds = 0;
 static int toturialsum = 1000000;
-static int sum = 0;
+static int sum = 5000000;
 
 
 bool check(int x, int y, int z)
@@ -240,6 +240,7 @@ void smallApartment()
         definecoordinate(Housestore1[i], Housestore1[i + 1]);
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "HHHHH" << endl;
+        sum = sum - 3000000;
     }
 }
 void mediumApartmrnt()
@@ -249,6 +250,7 @@ void mediumApartmrnt()
         definecoordinate(Housestore2[i], Housestore2[i + 1]);
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "HHHHHHHHH" << endl;
+        sum = sum - 10000000;
     }
 
 }
@@ -259,6 +261,7 @@ void largeapartment()
         definecoordinate(Housestore3[i], Housestore3[i + 1]);
         SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
         cout << "HHHHHHHHHHH" << endl;
+        sum = sum - 50000000;
     }
 }
 
@@ -267,7 +270,7 @@ void finance1()
     if (hours % 30 == 0)
     {
         sum = sum + 800000;
-        cout << sum << endl;
+       
     }
 }
 void timer()
@@ -276,24 +279,28 @@ void timer()
     while (true) {
 
         finance1();
-        Sleep(1000);
-        seconds = seconds + 60;
-        if (seconds == 60) {
-            minutes = minutes + 60;
-            if (minutes == 60) {
-                hours++;
-                minutes = 0;
+        if (finance(sum) == true)
+        {
+            Sleep(1000);
+            seconds = seconds + 60;
+            if (seconds == 60) {
+                minutes = minutes + 60;
+                if (minutes == 60) {
+                    hours++;
+                    minutes = 0;
+                }
+                seconds = 0;
             }
-            seconds = 0;
         }
     }
 }
 
 void GameCommandEngine()
-{   
+{
     string x;
     bool gamenotover;
-    gamenotover = finance(500);
+    gamenotover = finance(sum);
+    
     while (gamenotover)
     {
         cout << "\nWelcome back to the command line\n-To view map write map.\n-To view City statistics write stats\n-To go to construction menu\n-To clear screen write cls " << endl;
@@ -318,6 +325,19 @@ void GameCommandEngine()
             system("cls");
             CityBuilder();
         }
+        if (x == "stats")
+        {   
+            system("cls");
+            cout.width(120);
+            cout << "Welcome to the stats Menu" << endl;
+            cout << "Your city has " << sum << " in the treasury" << endl;
+            cout << "The Hapiness Meter is currently at 78%" << endl;
+            if (gamenotover == false)
+            {
+                cout << "Oops ! Your city went bankrupt ! Thanks for playing ." << endl;
+            }
+
+        }
 
     }
 }
@@ -331,10 +351,10 @@ void GameEngine()
 
 int main()
 {
-    
+
     cout << welcometext(5) << endl;
     Tutorials(3);
     GameEngine();
-    
+
     return 0;
 }
