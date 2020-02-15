@@ -47,7 +47,7 @@ public:
     bool SideRoad;
     NumberofHousing=cnt()
 
-    housingdefine() /*  A basic constructer for the code that explains the default settings */
+    housingdefine() /*  A basic constructer for the code that explains the default settings , COULD BE ANYTHING HERE*/
     {
     cout<<"Welcome to the city housing services.\nTax has been set to 20 percent to all the families in the apartment\n We currently hold "<<NumberofHousing <<" Apartments"
     }
@@ -56,5 +56,5 @@ public:
 class housing_update : public housingdefine
 public:
     {
-        /*Can only to desined once the frame of all cpp files are done "*/
+        /*EVERYONE CAN PUT THEIR CODE HERE AND ACCESS STUFF FROM THE DEFINITION . IF ANYONE DOESNT KNOW HOW TO WORK WITH CLASS JUST LET ME KNOW"*/
     };
