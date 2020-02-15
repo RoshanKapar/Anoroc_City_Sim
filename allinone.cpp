@@ -180,8 +180,7 @@ void Tutorials(int num)
             system("cls");
             cout << "-Congratulations ! You have successfully build a Townhall." << endl;
             cout << "Let me give you a brief about the city and its associated costs" << endl;
-            SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-            cout << City_costs << endl;
+            SetConsoleTextAttribute(h, FOREGROUND_GREEN | FOREGROUND_INTENSITY);           
             cout << "--Remember that your Citizens give you 20% tax for the services they use and income they earn per month." << endl;
             Townhall_NotBuilt = false;
         }
@@ -270,7 +269,7 @@ void finance1()
     if (hours % 30 == 0)
     {
         sum = sum + 800000;
-       
+
     }
 }
 void timer()
@@ -300,9 +299,10 @@ void GameCommandEngine()
     string x;
     bool gamenotover;
     gamenotover = finance(sum);
-    
+
     while (gamenotover)
     {
+
         cout << "\nWelcome back to the command line\n-To view map write map.\n-To view City statistics write stats\n-To go to construction menu\n-To clear screen write cls " << endl;
         cin >> x;
         if (x == "map") {
@@ -326,7 +326,7 @@ void GameCommandEngine()
             CityBuilder();
         }
         if (x == "stats")
-        {   
+        {
             system("cls");
             cout.width(120);
             cout << "Welcome to the stats Menu" << endl;
@@ -341,12 +341,22 @@ void GameCommandEngine()
 
     }
 }
+void player()
+{
+
+    {
+        bool played = PlaySound(TEXT("gamemusic.wav"), NULL, SND_SYNC);
+    }
+}
+
 void GameEngine()
 {
+    thread t3(player);
     thread t1(timer);
     thread t2(GameCommandEngine);
     t1.join();
     t2.join();
+    t3.join();
 }
 
 int main()
